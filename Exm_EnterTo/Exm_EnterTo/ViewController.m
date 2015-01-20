@@ -18,6 +18,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [_regView setHidden:YES];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"login"] != nil || [defaults objectForKey:@"password"] != nil) {
+        [self performSegueWithIdentifier:@"closeZone" sender:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,6 +40,13 @@
     }
 }
 - (IBAction)loginBtn:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![self.loginL.text isEqualToString:@""] || ![self.passL.text isEqualToString:@""]) {
+    
+    [defaults setObject:self.loginL.text forKey:@"login"];
+    [defaults setObject:self.passL.text forKey:@"password"];
+    [self performSegueWithIdentifier:@"closeZone" sender:self];
+    }
 }
 - (IBAction)switch:(id)sender {
 }
